@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Boardto - Reporting</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <style>
+    body { font-family: Arial, sans-serif; background: #e9eaef; color: #4c5059; }
+
+    header { height: 54px; }
+    .brand, aside { width: 164px; flex-shrink: 0; }
+    .brand { padding-left: 45px; font-size: 12px; }
+    aside { padding: 20px 14px; }
+    nav p, .logout { display: flex; align-items: center; gap: 13px; height: 35px; padding: 0 25px; margin-bottom: 17px; font-size: 9px; white-space: nowrap; }
+    nav span, .logout span { width: 17px; font-size: 17px; color: #95989c; }
+    .active { background: #04b1ce; color: white; border-radius: 10px; }
+    .active span { color: white; }
+    main { min-height: 596px; padding: 28px 30px 24px; border-radius: 30px 0 0; background: linear-gradient(120deg, #f6f7fa, #e7e8ec); }
+    .filters { font-size: 9px; }
+    .filters b { display: inline-block; margin-left: 8px; padding: 6px 8px; border-radius: 5px; background: white; font-size: 8px; font-weight: normal; }
+    .filters .selected { color: #04b1ce; background: #dff2f6; border: 1px solid #75cddd; }
+    .card { position: relative; height: 184px; padding: 36px 27px 20px; border-radius: 23px; background: white; }
+    .badge { position: absolute; top: -23px; left: 27px; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; color: white; font-size: 22px; }
+    .card h2 { font-size: 13px; font-weight: 600; white-space: nowrap; }
+    .detail { margin-top: 8px; font-size: 9px; color: #81858b; white-space: nowrap; }
+    .footer { display: flex; justify-content: space-between; border-top: 1px solid #f1f2f4; margin-top: 16px; padding-top: 15px; }
+    .footer h3 { font-size: 8px; font-weight: bold; margin-bottom: 7px; }
+    .footer p { font-size: 10px; }
+    .members { display: flex; align-items: center; gap: 3px; font-size: 9px; color: #999; }
+    .members img { width: 15px; height: 15px; border-radius: 50%; object-fit: cover; }
+  </style>
+</head>
+<body>
+  <div class="flex min-h-screen flex-col bg-white">
+    <header class="flex items-center">
+      <div class="brand flex items-center gap-2"><span class="text-cyan-500"><i class="fa-solid fa-circle-up" aria-hidden="true"></i></span><label>Boardto</label></div>
+      <label class="ml-5 flex items-center gap-2 text-[9px]">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <input id="search" type="search" placeholder="Search ..." aria-label="Search projects" oninput="searchProjects()" class="w-48 text-[9px] outline-cyan-500">
+      </label>
+      <div class="ml-auto mr-4 flex items-center gap-3">
+        <span class="mr-3 text-gray-400"><i class="fa-regular fa-bell" aria-hidden="true"></i><sup class="text-orange-400">1</sup></span>
+        <img src="https://i.pravatar.cc/80?img=47" alt="Augusta Ryan" class="h-8 w-8 rounded-full">
+        <div><p class="text-[10px] font-bold">Augusta Ryan</p><p class="text-[8px]">Director</p></div>
+        <span class="text-gray-400"><i class="fa-regular fa-circle-down" aria-hidden="true"></i></span>
+      </div>
+    </header>
+    <div class="flex flex-1">
+      <aside class="flex flex-col">
+        <nav>
+          <p><span><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i></span><label>Boards</label></p>
+          <p><span><i class="fa-regular fa-calendar" aria-hidden="true"></i></span><label>Plan Schedule</label></p>
+          <p class="active"><span><i class="fa-solid fa-file-lines" aria-hidden="true"></i></span><label>Reporting</label></p>
+          <p><span><i class="fa-regular fa-message" aria-hidden="true"></i></span><label>Messages</label></p>
+          <p><span><i class="fa-solid fa-sitemap" aria-hidden="true"></i></span><label>Team Member</label></p>
+          <p><span><i class="fa-solid fa-earth-americas" aria-hidden="true"></i></span><label>Tools Plugin</label></p>
+          <p><span><i class="fa-solid fa-diagram-project" aria-hidden="true"></i></span><label>Roadmap</label></p>
+          <p><span><i class="fa-solid fa-sliders" aria-hidden="true"></i></span><label>Setting</label></p>
+        </nav>
+        <p class="logout mt-auto mb-0"><span><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i></span><label>Logout</label></p>
+      </aside>
+      <main class="flex-1">
+        <div class="flex justify-between border-b border-gray-200 pb-4">
+          <div><h1 class="text-[13px] font-bold">Reporting</h1><p class="mt-1 text-[8px] text-gray-400">All projects in the current month</p></div>
+          <span class="active grid h-8 w-8 place-items-center text-sm">+</span>
+        </div>
+        <div class="filters mt-4 mb-11 flex items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <span>All <b class="selected">50</b></span>
+            <span>Started <b>20</b></span>
+            <span>Approval <b>15</b></span>
+            <span>Completed <b>34</b></span>
+          </div>
+          <div class="flex gap-2"><span class="rounded bg-white px-2 py-1"><i class="fa-solid fa-sliders" aria-hidden="true"></i> More</span><span class="rounded bg-white px-2 py-1"><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i></span><span class="selected rounded px-2 py-1"><i class="fa-solid fa-list" aria-hidden="true"></i></span></div>
+        </div>
+        <div class="grid grid-cols-4 gap-x-4 gap-y-10">
+          <article class="card">
+            <span class="badge" style="background: #f55492"><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i></span>
+            <h2>App Development</h2>
+            <p class="detail"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i> &nbsp; Marketing Team</p>
+            <p class="detail"><i class="fa-regular fa-clock" aria-hidden="true"></i> &nbsp; 1 Week Left</p>
+            <div class="footer">
+              <div><h3>Team Member</h3><div class="members"><img src="https://i.pravatar.cc/40?img=12" alt="Team member"><img src="https://i.pravatar.cc/40?img=47" alt="Team member"><img src="https://i.pravatar.cc/40?img=49" alt="Team member"><span>+</span></div></div>
+              <div><h3>Progress</h3><p>34%</p></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <span class="badge" style="background: #10c4a5"><i class="fa-solid fa-laptop-code" aria-hidden="true"></i></span>
+            <h2>Web Design</h2>
+            <p class="detail"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i> &nbsp; Core UI Team</p>
+            <p class="detail"><i class="fa-regular fa-clock" aria-hidden="true"></i> &nbsp; 3 Weeks Left</p>
+            <div class="footer">
+              <div><h3>Team Member</h3><div class="members"><img src="https://i.pravatar.cc/40?img=47" alt="Team member"><span>+</span></div></div>
+              <div><h3>Progress</h3><p>76%</p></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <span class="badge" style="background: #4e95f5"><i class="fa-solid fa-window-maximize" aria-hidden="true"></i></span>
+            <h2>Landing Page</h2>
+            <p class="detail"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i> &nbsp; Marketing Team</p>
+            <p class="detail"><i class="fa-regular fa-clock" aria-hidden="true"></i> &nbsp; 2 Days Left</p>
+            <div class="footer">
+              <div><h3>Team Member</h3><div class="members"><img src="https://i.pravatar.cc/40?img=11" alt="Team member"><img src="https://i.pravatar.cc/40?img=12" alt="Team member"><img src="https://i.pravatar.cc/40?img=13" alt="Team member"><span>+</span></div></div>
+              <div><h3>Progress</h3><p>4%</p></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <span class="badge" style="background: #ff8535"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i></span>
+            <h2>Business Compare</h2>
+            <p class="detail"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i> &nbsp; Marketing Team</p>
+            <p class="detail"><i class="fa-regular fa-clock" aria-hidden="true"></i> &nbsp; 1 Month Left</p>
+            <div class="footer">
+              <div><h3>Team Member</h3><div class="members"><img src="https://i.pravatar.cc/40?img=49" alt="Team member"><img src="https://i.pravatar.cc/40?img=12" alt="Team member"><span>+</span></div></div>
+              <div><h3>Progress</h3><p>90%</p></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <span class="badge" style="background: #cc80de"><i class="fa-solid fa-store" aria-hidden="true"></i></span>
+            <h2>Commerce Checkout</h2>
+            <p class="detail"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i> &nbsp; Order Process Team</p>
+            <p class="detail"><i class="fa-regular fa-clock" aria-hidden="true"></i> &nbsp; 3 Weeks Left</p>
+            <div class="footer">
+              <div><h3>Team Member</h3><div class="members"><img src="https://i.pravatar.cc/40?img=44" alt="Team member"><span>+</span></div></div>
+              <div><h3>Progress</h3><p>65%</p></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <span class="badge" style="background: #ff8535"><i class="fa-solid fa-server" aria-hidden="true"></i></span>
+            <h2>Data Staging</h2>
+            <p class="detail"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i> &nbsp; Core Data Team</p>
+            <p class="detail"><i class="fa-regular fa-clock" aria-hidden="true"></i> &nbsp; 2 Months Left</p>
+            <div class="footer">
+              <div><h3>Team Member</h3><div class="members"><img src="https://i.pravatar.cc/40?img=47" alt="Team member"><img src="https://i.pravatar.cc/40?img=11" alt="Team member"><span>+</span></div></div>
+              <div><h3>Progress</h3><p>96%</p></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <span class="badge" style="background: #7cc3e3"><i class="fa-solid fa-video" aria-hidden="true"></i></span>
+            <h2>Campaign Store</h2>
+            <p class="detail"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i> &nbsp; Internal Communication</p>
+            <p class="detail"><i class="fa-regular fa-clock" aria-hidden="true"></i> &nbsp; 11 Days Left</p>
+            <div class="footer">
+              <div><h3>Team Member</h3><div class="members"><img src="https://i.pravatar.cc/40?img=15" alt="Team member"><img src="https://i.pravatar.cc/40?img=5" alt="Team member"><img src="https://i.pravatar.cc/40?img=49" alt="Team member"><span>+</span></div></div>
+              <div><h3>Progress</h3><p>24%</p></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <span class="badge" style="background: #f35494"><i class="fa-solid fa-headset" aria-hidden="true"></i></span>
+            <h2>Acquisition Mitra</h2>
+            <p class="detail"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i> &nbsp; Merchant Team</p>
+            <p class="detail"><i class="fa-regular fa-clock" aria-hidden="true"></i> &nbsp; 1 Week Left</p>
+            <div class="footer">
+              <div><h3>Team Member</h3><div class="members"><img src="https://i.pravatar.cc/40?img=45" alt="Team member"><span>+</span></div></div>
+              <div><h3>Progress</h3><p>70%</p></div>
+            </div>
+          </article>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script>
+    function searchProjects() {
+      const search = document.getElementById('search').value.toLowerCase();
+      const cards = document.querySelectorAll('.card');
+      for (let i = 0; i < cards.length; i++) {
+        const title = cards[i].querySelector('h2').textContent.toLowerCase();
+        cards[i].style.display = title.includes(search) ? 'block' : 'none';
+      }
+    }
+  </script>
+</body>
+</html>
